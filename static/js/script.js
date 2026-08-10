@@ -62,44 +62,53 @@ gsap.utils.toArray('.reveal-card').forEach((card) => {
     gsap.from(card, { scrollTrigger: { trigger: card, start: 'top 85%' }, y: 50, opacity: 0, duration: 0.8, ease: 'power2.out' });
 });
 
-// 6. GSAP RESPONSIVE PINNED SKILLS
+// 6. GSAP RESPONSIVE PINNED HORIZONTAL SKILLS
 let mm = gsap.matchMedia();
 
 mm.add("(min-width: 1025px)", () => {
-    // Desktop: Pin the section and animate the cards entering
-    const kpiCards = gsap.utils.toArray('.kpi-card');
-
-    const skillsTl = gsap.timeline({
-        scrollTrigger: {
-            trigger: '.pinned-skills-wrapper',
-            start: 'top top',
-            end: '+=1500', // Scroll distance to complete animation
-            pin: true,
-            scrub: 1,
-        }
-    });
-
-    // Animate Cards coming in
-    skillsTl.to(kpiCards, {
-        opacity: 1,
-        scale: 1,
-        y: 0,
-        stagger: 0.2,
-        duration: 1,
-        ease: "back.out(1.2)"
-    });
+    // Desktop: Pin the section and scroll the track horizontally
+    const track = document.querySelector('.kpi-horizontal-track');
+    
+    if (track) {
+        // Calculate exactly how far the track needs to slide to the left
+        // (Total width of track) - (Viewport width) + (Padding allowance)
+        let scrollDistance = track.scrollWidth - window.innerWidth + (window.innerWidth * 0.16);
+        
+        gsap.to(track, {
+            x: -scrollDistance,
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".pinned-skills-wrapper",
+                start: "center center",
+                end: () => "+=" + scrollDistance, // Duration based on scroll width
+                pin: true,
+                scrub: 1,
+                invalidateOnRefresh: true // Recalculates on window resize
+            }
+        });
+    }
 });
 
 mm.add("(max-width: 1024px)", () => {
-    // Mobile/Tablet: No pinning, just trigger animations on scroll entry
-    const kpiCards = gsap.utils.toArray('.kpi-card');
-
-    kpiCards.forEach((card, index) => {
-        gsap.to(card, {
-            scrollTrigger: { trigger: card, start: 'top 85%' },
-            opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "back.out(1.2)"
+    // Mobile/Tablet: Stack them vertically as standard scroll items
+    const track = document.querySelector('.kpi-horizontal-track');
+    if (track) {
+        track.style.flexDirection = "column";
+        track.style.width = "100%";
+        track.style.paddingRight = "8%";
+        
+        const cards = gsap.utils.toArray('.kpi-card');
+        cards.forEach(card => {
+            card.style.width = "100%"; // Full width on mobile
+            gsap.from(card, {
+                scrollTrigger: { trigger: card, start: 'top 85%' },
+                y: 30, 
+                opacity: 0, 
+                duration: 0.6, 
+                ease: "power2.out"
+            });
         });
-    });
+    }
 });
 
 // 7. VanillaTilt 3D Effect

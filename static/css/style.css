@@ -154,20 +154,63 @@ a, button, .magnetic-btn { cursor: pointer; }
     opacity: 0; transform: scale(0.95); 
 }
 
-/* PINNED SKILLS SECTION */
-.pinned-skills-wrapper { width: 100%; min-height: 100vh; background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; border-top: 1px solid rgba(226, 232, 240, 1); border-bottom: 1px solid rgba(226, 232, 240, 1); }
-.pinned-skills-wrapper::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(14, 165, 233, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(14, 165, 233, 0.05) 1px, transparent 1px); background-size: 40px 40px; z-index: 0; }
-.pinned-skills-container { width: 84%; max-width: 1400px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: center; z-index: 1; }
-.pinned-left .sub-tag { color: var(--accent-blue); font-weight: 800; letter-spacing: 2px; font-size: 0.85rem; text-transform: uppercase; }
-.pinned-left h2 { font-size: 3.5rem; font-weight: 900; margin: 1rem 0 1.5rem 0; line-height: 1.1; letter-spacing: -1.5px; }
-.pinned-left p { color: var(--text-secondary); font-size: 1.15rem; line-height: 1.7; }
+/* =========================================================
+   HORIZONTAL PINNED SKILLS SECTION 
+   ========================================================= */
+.pinned-skills-wrapper { 
+    width: 100%; 
+    min-height: 100vh; 
+    background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%); 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    overflow: hidden; 
+    position: relative; 
+    border-top: 1px solid rgba(226, 232, 240, 1); 
+    border-bottom: 1px solid rgba(226, 232, 240, 1);
+    padding: 6rem 0; 
+}
 
-.kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-.kpi-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 1); border-top: 4px solid var(--accent-blue); padding: 2.5rem; border-radius: 20px; box-shadow: var(--shadow-heavy); opacity: 0.2; transform: scale(0.95) translateY(20px); }
+.pinned-skills-wrapper::before { 
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+    background-image: linear-gradient(rgba(14, 165, 233, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(14, 165, 233, 0.05) 1px, transparent 1px); 
+    background-size: 40px 40px; z-index: 0; 
+}
+
+.horizontal-scroll-wrapper {
+    width: 100%;
+    overflow: hidden;
+    padding-left: 8%; /* Aligns the start of the cards with your layout */
+    margin-top: 2rem;
+}
+
+.kpi-horizontal-track {
+    display: flex;
+    gap: 2rem;
+    width: max-content; /* Allows track to stretch as wide as the cards */
+    padding-right: 8%; 
+    align-items: stretch;
+}
+
+.kpi-card { 
+    width: 380px; /* Fixed width for horizontal scrolling */
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.95); 
+    backdrop-filter: blur(20px); 
+    border: 1px solid rgba(226, 232, 240, 1); 
+    border-top: 4px solid var(--accent-blue); 
+    padding: 2.5rem; 
+    border-radius: 20px; 
+    box-shadow: var(--shadow-soft); 
+    /* Remove previous GSAP initial states */
+    opacity: 1; 
+    transform: none; 
+}
+
 .kpi-header { display: flex; justify-content: space-between; align-items: center; font-size: 1.8rem; color: var(--text-primary); }
 .kpi-trend { font-size: 0.75rem; font-weight: 700; color: var(--accent-blue); background: rgba(14, 165, 233, 0.1); padding: 0.4rem 0.8rem; border-radius: 20px; display: flex; align-items: center; gap: 0.4rem; text-transform: uppercase; }
-.kpi-title { font-size: 1.4rem; font-weight: 800; margin-top: 1.2rem; margin-bottom: 0.8rem; color: var(--text-primary); }
-.kpi-desc { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.6; }
+.kpi-title { font-size: 1.3rem; font-weight: 800; margin-top: 1.2rem; margin-bottom: 0.8rem; color: var(--text-primary); line-height: 1.3;}
+.kpi-desc { font-size: 1rem; color: var(--text-secondary); line-height: 1.6; }
 
 /* SERVICES & ABOUT */
 .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; }
